@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // Components
 import Header from './components/header/Header';
@@ -8,11 +8,6 @@ import List from './components/list/List';
 
 
 const App = () => {
-
-  const handleSetTasks = (tasks) => {
-    setTasks(tasks);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }
 
   const init = () => {
     const tasks = localStorage.getItem('tasks');
@@ -27,11 +22,15 @@ const App = () => {
   const [tasks, setTasks] = useState(init());
   const [showTasksCompleted, setShowTasksCompleted] = useState(true);
 
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
+
   return (
     <div className='container'>
       <Header setShowTasksCompleted={setShowTasksCompleted} showTasksCompleted={showTasksCompleted} />
-      <Form tasks={tasks} handleSetTasks={handleSetTasks} />
-      <List tasks={tasks} handleSetTasks={handleSetTasks} showTasksCompleted={showTasksCompleted} />
+      <Form tasks={tasks} setTasks={setTasks} />
+      <List tasks={tasks} setTasks={setTasks} showTasksCompleted={showTasksCompleted} />
     </div>
   );
 }

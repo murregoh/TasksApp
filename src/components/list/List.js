@@ -4,7 +4,7 @@ const List = (props) => {
 
     const deleteTask = (taskId) => {
         const newTasks = JSON.parse(JSON.stringify(props.tasks));
-        props.handleSetTasks(newTasks.filter(t => t.id !== taskId));
+        props.setTasks(newTasks.filter(t => t.id !== taskId));
     }
 
     const updateTaskDescription = (e, taskId, taskDescription) => {
@@ -12,14 +12,14 @@ const List = (props) => {
 
         let newTasks = JSON.parse(JSON.stringify(props.tasks));
         newTasks.find(t => t.id === taskId).description = taskDescription;
-        props.handleSetTasks(newTasks);
+        props.setTasks(newTasks);
     }
 
     const updateTaskIsCompleted = (taskId, isCompleted) => {
 
         let newTasks = JSON.parse(JSON.stringify(props.tasks));
         newTasks.find(t => t.id === taskId).isCompleted = isCompleted;
-        props.handleSetTasks(newTasks);
+        props.setTasks(newTasks);
     }
 
     return (

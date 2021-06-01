@@ -12,7 +12,7 @@ const Form = (props) => {
         ev.preventDefault();
 
         if (task && task !== '') {
-            props.handleSetTasks(
+            props.setTasks(
                 [
                     ...props.tasks,
                     {
