@@ -1,23 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
-function App() {
+// Components
+import Header from './components/header/Header';
+import Form from './components/form/Form';
+import List from './components/list/List';
+
+
+const App = () => {
+
+  const handleSetTasks = (tasks) => {
+    setTasks(tasks);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }
+
+  const init = () => {
+    const tasks = localStorage.getItem('tasks');
+
+    if (tasks === null) {
+      return [];
+    } else {
+      return JSON.parse(tasks);
+    }
+  }
+
+  const [tasks, setTasks] = useState(init());
+  const [showTasksCompleted, setShowTasksCompleted] = useState(true);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+      <Header setShowTasksCompleted={setShowTasksCompleted} showTasksCompleted={showTasksCompleted} />
+      <Form tasks={tasks} handleSetTasks={handleSetTasks} />
+      <List tasks={tasks} handleSetTasks={handleSetTasks} showTasksCompleted={showTasksCompleted} />
     </div>
   );
 }
